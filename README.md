@@ -1,4 +1,4 @@
-# bash-testing-demo
+# Bash Testing Demo
 A Demo showing how to use Bats to test Bash scripts
 
 The files starting with "test" are BATS files, while the others are the code being tested. 
