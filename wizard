@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+
+source "wizard_equiper"
+
+blow_stuff_up() {
+  local mana=${1}
+
+  put_on_pointly_hat
+
+  local spells="$(hadoop fs -ls)"
+
+  echo "Make the things explode! (with ${mana} units of mana)"
+  echo "Look at my spells!!! ${spells}"
+}
+
+main() {
+  blow_stuff_up ${1}
+}
+
+main "$@"
+

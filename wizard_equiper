@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+put_on_pointly_hat() {
+  if [[ ${HAS_MATCHING_CLOTHES} ]]; then
+    echo "I look fantastic in my new pointy hat"
+  else
+    echo >&2 "Why are we wizards so bad at fashion"
+    exit 1
+  fi
+}

@@ -1,0 +1,33 @@
+#!/usr/bin/env bats
+
+set -e
+
+source "wizard_equiper"                                             # getting access to code
+
+@test "test_put_on_pointy_hat_with_matching_clothes" {              # naming the test
+  export HAS_MATCHING_CLOTHES="yes"                                 # "mocking" environment variable
+  local result="$(put_on_pointly_hat)"                              # saving function's echoed strings to a variable
+
+  [ "${result}" = "I look fantastic in my new pointy hat" ]         # checking the results are what we expect
+}
+
+
+
+
+
+@test "test_put_on_pointy_hat_without_matching_clothes_exits" {
+  local result="$( (put_on_pointly_hat) || echo "failed" )"
+
+  [ "${result}" = "failed" ]
+}
+
+
+
+
+
+@test "test_put_on_pointy_hat_without_matching_clothes_prints" {
+  local result="$( (put_on_pointly_hat 2>&1) )"
+
+  echo $result
+  [ "${result}" = "Why are we wizards so bad at fashion" ]
+}

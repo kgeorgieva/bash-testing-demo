@@ -1,0 +1,48 @@
+#!/usr/bin/env bats
+
+set -e
+
+# can have a setup function that will run before each test
+setup() {
+    hadoop() { echo "Buggy spells"; }                                   # creating a mock for our custom function (same name)
+    export -f hadoop                                                    # exporting the function makes the code run our mock
+
+    source() { echo "Source happened"; }
+    export -f source
+
+    put_on_pointly_hat() { echo "Super geil!"; }
+    export -f put_on_pointly_hat
+}
+
+
+
+
+@test "test_blow_stuff_up_calls_put_on_pointly_hat" {
+  local result="$( ./wizard )"                                              # Can call without sourcing
+
+  local mock_result="$(echo ${result} | grep -oh 'Super geil!' )"
+
+  [ "${mock_result}" = "Super geil!" ]
+}
+
+
+
+
+@test "test_blow_stuff_up_calls_hadoop" {
+  local result="$( ./wizard | grep -oh 'Buggy spells')"
+
+  [ "${result}" = "Buggy spells" ]
+}
+
+
+
+
+@test "test_blow_stuff_up_outputs_mana" {
+  local result="$( ./wizard 500 | sed -n '3p')"
+
+  [ "${result}" = "Make the things explode! (with 500 units of mana)" ]
+}
+
+
+
+#there is also a teardown function that will run after every test
